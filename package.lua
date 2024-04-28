@@ -1,5 +1,5 @@
 return {
-	name = 'MrEntrasil/discordis',
+	name = 'MrEntrasil/Discordis',
 	version = '0.0.1',
 	homepage = 'https://github.com/MrEntrasil/discordis',
 	dependencies = {
