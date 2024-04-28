@@ -1,4 +1,4 @@
-![logo](https://github.com/MrEntrasil/discordis/tree/main/images/banner.png)
+![logo](https://github.com/MrEntrasil/discordis/blob/main/images/banner.png)
 
 ### Welcome to Discordis!
 
