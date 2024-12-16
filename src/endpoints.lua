@@ -5,5 +5,6 @@ return {
     MESSAGES = base_url.."/channels/%s/messages",
     MESSAGE = base_url.."/channels/%s/messages/%s",
     USER = base_url.."/users/%s",
-    REACTIONS = "/channels/%s/messages/%s/reactions/%s/@me"
+    REACTIONS = "/channels/%s/messages/%s/reactions/%s/@me",
+    GUILD = base_url.."/guilds/%s"
 }

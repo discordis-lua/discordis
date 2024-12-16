@@ -7,6 +7,6 @@
 ]]
 
 return {
-	cache = require("./utils/cache"),
+	cache = require("./class/cache"),
 	client = require("./class/client")
 }

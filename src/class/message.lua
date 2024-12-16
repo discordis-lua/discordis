@@ -3,7 +3,8 @@ local http = require "coro-http"
 local endp = require "../endpoints"
 local cache = require "./cache"
 local channel = require "./channel"
-local logs = require "./utils/logs"
+local guild = require "./guild"
+local logs = require "../utils/logs"
 
 local module = {}
 local class = {}
@@ -19,9 +20,11 @@ function module.new(object, token, id, channel_id)
     }
 
     if object then
-        object.channel = channel.new(object.channel_id)
+        object.channel = channel.new(object.channel_id, token)
         object.channel_id = nil
         object._token = token
+        object.guild = guild.new(nil, object.guild_id, token)
+        object.guild_id = nil
 
         if not message_cache:fetch(tonumber(object.id)) then
             message_cache:add(tonumber(object.channel.id), setmetatable(object, class))

@@ -46,7 +46,7 @@ function module:ManageEvents(pd)
         print(logs.Received:format("READY"))
         emitter:emit("ready")
     elseif t == "MESSAGE_CREATE" then
-        emitter:emit("messageCreate", message.new(d.channel_id, d, false, self.token))
+        emitter:emit("messageCreate", message.new(d, self.token, d.id, d.channel_id))
     elseif t == "RESUMED" then
         self.write{
             opcode = 6,
