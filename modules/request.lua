@@ -1,0 +1,36 @@
+local json = require("lunajson")
+local mod = {}
+
+function mod.request(url, options)
+	assert(options, "'options' not provided")
+	assert(url, "'url' not provided")
+	options.method = options.method or "GET"
+	options.body = options.body or "{}"
+	options.headers = options.headers or {}
+	local body = options.body
+	local headers = options.headers
+
+	if options.is_json and type(body) == "table" then
+		body = json.encode(body)
+		table.insert(headers, "Content-Type: application/json")
+	end
+
+	local hflags = ""
+	for _, v in ipairs(headers) do
+		hflags = hflags..string.format("-H '%s' ", v)
+	end
+	local command = string.format(
+		"curl -s -X %s %s-d '%s' '%s'",
+		options.method,
+		hflags,
+		body,
+		url
+	)
+	local f = io.popen(command)
+	local res = f:read("*a")
+	f:close()
+
+	return res
+end
+
+return mod
