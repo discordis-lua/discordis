@@ -13,6 +13,7 @@ function mod.request(url, options)
 	if options.is_json and type(body) == "table" then
 		body = json.encode(body)
 		table.insert(headers, "Content-Type: application/json")
+		table.insert(headers, "User-Agent: Discordis/0.1")
 	end
 
 	local hflags = ""
@@ -35,10 +36,15 @@ end
 
 function mod.api_request(self, options)
 	assert(options.token, "'token' not provided in function request:api_request(HERE)")
-	assert(options.body, "'body' not provided in function request:api_request(HERE)")
 	assert(options.endpoint, "'endpoint' not provided in function request:api_request(HERE)")
 	assert(options.method, "'method' not provided in function request:api_request(HERE)")
 	local base_url = "https://discord.com/api/v10/"
+	local as_json = false
+	if options.body then
+		as_json = true
+	else
+		options.body = ""
+	end
 
 	return self.request(base_url..options.endpoint, {
 		headers = {
@@ -46,7 +52,7 @@ function mod.api_request(self, options)
 		},
 		method = options.method,
 		body = options.body,
-		is_json = true
+		is_json = as_json
 	})
 end
 
