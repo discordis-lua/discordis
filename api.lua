@@ -1,13 +1,21 @@
 local request = _discordis.modules.request
 local api = {}
+api.__index = api
 
-function api.send_message(options)
-	assert(options.token, "Missing 'token' in api.send_message(HERE)")
-	assert(options.channel_id, "Missing 'channel_id' in api.send_message(HERE)")
-	assert(options.content, "Missing 'content' in api.send_message(HERE)")
+function api.new(token)
+	assert(token, "Missing 'token'")
+	
+	return setmetatable({
+		API_TOKEN = token
+	}, api)
+end
+
+function api.send_message(self, options)
+	assert(options.channel_id, "Missing 'channel_id'")
+	assert(options.content, "Missing 'content'")
 
 	return request:api_request({
-		token = options.token,
+		token = self.API_TOKEN,
 		body = {
 			content = options.content
 		},
@@ -15,6 +23,19 @@ function api.send_message(options)
 		endpoint = string.format("channels/%d/messages", options.channel_id),
 		method = "POST"
 	})
+end
+
+function api.get_message(self, options)
+	assert(options.channel_id, "Missing 'channel_id'")
+	assert(options.message_id, "Missing 'message_id'")
+
+	print(options.channel_id, options.message_id, self.API_TOKEN)
+	return request:api_request{
+		endpoint = string.format("channels/%d/messages/%d", options.channel_id, options.message_id),
+		method = "GET",
+		token = self.API_TOKEN,
+		is_json = true
+	}
 end
 
 return api
