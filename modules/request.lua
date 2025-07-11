@@ -5,7 +5,7 @@ function mod.request(url, options)
 	assert(options, "'options' not provided")
 	assert(url, "'url' not provided")
 	options.method = options.method or "GET"
-	options.body = options.body or "{}"
+	options.body = options.body or {}
 	options.headers = options.headers or {}
 	local body = options.body
 	local headers = options.headers
@@ -31,6 +31,23 @@ function mod.request(url, options)
 	f:close()
 
 	return res
+end
+
+function mod.api_request(self, options)
+	assert(options.token, "'token' not provided in function request:api_request(HERE)")
+	assert(options.body, "'body' not provided in function request:api_request(HERE)")
+	assert(options.endpoint, "'endpoint' not provided in function request:api_request(HERE)")
+	assert(options.method, "'method' not provided in function request:api_request(HERE)")
+	local base_url = "https://discord.com/api/v10/"
+
+	return self.request(base_url..options.endpoint, {
+		headers = {
+			"Authorization: Bot "..options.token
+		},
+		method = options.method,
+		body = options.body,
+		is_json = true
+	})
 end
 
 return mod
