@@ -3,4 +3,4 @@
 /deps
 /.vs
 /.vscode
-/libs/*.so
+*.so
