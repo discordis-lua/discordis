@@ -1,4 +1,5 @@
 if not _G.discordis then
+	require("luacurl")
 	_G._discordis = {}
 	_G._discordis.modules = {}
 	_G._discordis.modules.request = require("modules.request")

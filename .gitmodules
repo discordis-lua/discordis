@@ -1,0 +1,6 @@
+[submodule "luacurl"]
+	path = luacurl
+	url = https://github.com/MrEntrasil/luacurl
+[submodule "fslua"]
+	path = fslua
+	url = https://github.com/MrEntrasil/fs.lua

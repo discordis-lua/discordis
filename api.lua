@@ -33,8 +33,7 @@ function api.get_message(self, options)
 	return request:api_request{
 		endpoint = string.format("channels/%d/messages/%d", options.channel_id, options.message_id),
 		method = "GET",
-		token = self.API_TOKEN,
-		is_json = true
+		token = self.API_TOKEN
 	}
 end
 
